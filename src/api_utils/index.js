@@ -1,1 +1,1 @@
-export const API_HOST = "http://localhost:4000/api/";
+export const API_HOST = "https://api.alamjamal.ml/api/";
