@@ -1,14 +1,23 @@
-name: Copy folder to new path
+name: Copy React build folder
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  copy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout source code
       uses: actions/checkout@v2
 
-    - name: Copy folder to new path
-      run: cp -r /opt /opt/frontend
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build React app
+      run: npm run build
+
+    - name: Copy build folder to new path
+      run: cp -r build/ /opt/frontend
