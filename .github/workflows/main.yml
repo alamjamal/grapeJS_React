@@ -7,17 +7,17 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout source code
       uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: npm install
+#     - name: Install dependencies
+#       run: npm install
 
-    - name: Build React app
-      run: CI=false npm run build
+#     - name: Build React app
+#       run: npm run build
 
     - name: Copy build folder to new path
       run: cp -r build/ /opt/frontend
