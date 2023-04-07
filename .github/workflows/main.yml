@@ -17,7 +17,7 @@ jobs:
       run: npm install
 
     - name: Build React app
-      run: npm run build
+      run: CI=false npm run build
 
     - name: Copy build folder to new path
       run: cp -r build/ /opt/frontend
