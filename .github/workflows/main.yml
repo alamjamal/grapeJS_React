@@ -11,4 +11,4 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Copy folder to new path
-      run: cp -r /path/to/source/folder /opt/frontend
+      run: cp -r /opt /opt/frontend
