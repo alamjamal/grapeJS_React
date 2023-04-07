@@ -1,0 +1,14 @@
+name: Copy folder to new path
+
+on: [push]
+
+jobs:
+  copy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v2
+
+    - name: Copy folder to new path
+      run: cp -r /path/to/source/folder /opt/frontend
