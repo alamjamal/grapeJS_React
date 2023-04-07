@@ -20,4 +20,4 @@ jobs:
 #       run: npm run build
 
     - name: Copy build folder to new path
-      run: cp -r build/ /opt/
+      run: sudo cp -r build/ /opt/
