@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { API_HOST } from "./api_utils";
@@ -12,14 +12,14 @@ const Editor = () => {
   const [editor, setEditor] = useState(null);
   const [assets, setAssets] = useState([]);
   const { pageId } = useParams();
-
+console.log(pageId,"pageId")
   const { pageStore } = useSelector((state) => state);
   const { pages } = pageStore;
 
   useEffect(() => {
     async function getAllAssets() {
       try {
-        const response = await axios.get(`${API_HOST}assets/`);
+        const response = await axios.get(`${API_HOST}assets/${pageId}`);
         setAssets(response.data);
       } catch (error) {
         setAssets(error.message);
@@ -41,7 +41,7 @@ const Editor = () => {
       >
         <nav className="navbar navbar-light">
           <div className="container-fluid">
-            <span className="navbar-brand mb-0 h3 logo">Code Dexterous</span>
+           <Link to="/"> <span className="navbar-brand mb-0 h3 logo">Team Teachanda</span></Link>
           </div>
         </nav>
         <PageSection pages={pages} />

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createPage } from "./redux/actions/pageAction";
+import axios from "axios";
+import { API_HOST } from "./api_utils";
+import { pageLoad } from "./redux/actions/pageAction";
 
 const Home = () => {
   const [name, setName] = useState("");
@@ -15,28 +18,41 @@ const Home = () => {
 
   const { pageStore } = useSelector((state) => state);
   const { pages } = pageStore;
-
+console.log(pages,"pagespages")
   const handleSubmit = async () => {
     if (!name) {
       setIsValid(false);
       return;
     }
-    const payload={
-      "name":name,
-"userName":userName,
-"location":location,
-"industry":industry,
-"type":type,
+    const payload = {
+      "name": name,
+      "userName": userName,
+      "location": location,
+      "industry": industry,
+      "type": type,
     }
     createPage(payload)(dispatch);
   };
+
+
+  const handleDelete =async (e)=>{
+    // console.log(e,"sfsdfdsfsdf")
+    // e.preventDefault();
+    console.log(e,"sdfdfsfsdfs")
+    const response = await axios.delete(`${API_HOST}pages/${e}`);
+    console.log(response.status);
+    if(response.status === 200){
+      // await axios.get(`${API_HOST}pages`);
+      pageLoad()(dispatch);
+    }
+  }
 
   return (
     <div className="container">
       <div className="row">
         <div className="col-12 mt-5">
           <form id="create-page">
-            <div className="modal-header" style={{justifyContent:"center"}}>
+            <div className="modal-header" style={{ justifyContent: "center" }}>
               <h5 className="modal-title" id="addPageModalLabel">
                 Create Your Website
               </h5>
@@ -146,24 +162,24 @@ const Home = () => {
                 </div>
 
                 <div className="col-6 mt-2">
-                <label htmlFor="name" className="form-label">
-                 Page Name
-                </label>
-                <input
-                  type="text"
-                  className={`form-control form-control-sm ${isValid ? "" : "is-invalid"
-                    }`}
-                  id="name"
-                  name="name"
-                  placeholder="Name of Page"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                {!isValid && (
-                  <div className="invalid-feedback">
-                    Please provide a valid name.
-                  </div>
-                )}
+                  <label htmlFor="name" className="form-label">
+                    Page Name
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control form-control-sm ${isValid ? "" : "is-invalid"
+                      }`}
+                    id="name"
+                    name="name"
+                    placeholder="Name of Page"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  {!isValid && (
+                    <div className="invalid-feedback">
+                      Please provide a valid name.
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -226,7 +242,13 @@ const Home = () => {
                     <td>{page.name}</td>
                     <td>{page.slug}</td>
                     <td>
-                      <Link to={`/editor/${page._id}`}>Edit</Link>
+                      <Link to={`/editor/${page._id}`}><button>Edit</button></Link>&nbsp;
+
+                      <button
+                      //  onClick={()=>handleDelete(page._id)}
+                       onClick={() => { handleDelete(page._id) }}
+
+                       >Delete</button>
                     </td>
                   </tr>
                 ))
