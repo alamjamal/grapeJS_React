@@ -5,8 +5,10 @@ import { createPage } from "./redux/actions/pageAction";
 import axios from "axios";
 import { API_HOST } from "./api_utils";
 import { pageLoad } from "./redux/actions/pageAction";
+import Header from "./Header";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("")
   const [webSiteName, setWebSiteName] = useState("")
@@ -14,7 +16,7 @@ const Home = () => {
   const [industry, setIndustry] = useState("")
   const [type, setType] = useState("")
   const [isValid, setIsValid] = useState(true);
-  const dispatch = useDispatch();
+  const [content, setContect]=useState("")
 
   const { pageStore } = useSelector((state) => state);
   const { pages } = pageStore;
@@ -48,9 +50,24 @@ console.log(pages,"pagespages")
   }
 
   return (
+    <>
+    <Header/>
     <div className="container">
       <div className="row">
-        <div className="col-12 mt-5">
+      {/* <div className="col-10 mt-2">
+      
+      </div>
+      <div className="col-2 mt-2" style={{textAlign:"end"}}>
+      <div><span><b>Docs</b></span> &nbsp;&nbsp;  <span><b>Api's</b></span></div>
+        
+        </div> */}
+
+
+    
+
+        <div className="col-12 mt-3">
+       
+
           <form id="create-page">
             <div className="modal-header" style={{ justifyContent: "center" }}>
               <h5 className="modal-title" id="addPageModalLabel">
@@ -70,7 +87,7 @@ console.log(pages,"pagespages")
                       }`}
                     id="userName"
                     name="userName"
-                    placeholder="Enter Website Name"
+                    placeholder="Enter User Name"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                   />
@@ -150,7 +167,7 @@ console.log(pages,"pagespages")
                       }`}
                     id="setType"
                     name="setType"
-                    placeholder="Enter Website type"
+                    placeholder="Enter Websit type"
                     value={type}
                     onChange={(e) => setType(e.target.value)}
                   />
@@ -207,13 +224,13 @@ console.log(pages,"pagespages")
               </div> */}
             </div>
             <div className="modal-footer">
-              <button
+              {/* <button
                 type="button"
                 className="btn btn-secondary btn-sm"
                 data-bs-dismiss="modal"
               >
                 Clear
-              </button>
+              </button> */}
               <button
                 type="button"
                 className="btn btn-primary btn-sm"
@@ -224,6 +241,33 @@ console.log(pages,"pagespages")
             </div>
           </form>
         </div>
+{/* <form>
+<div className="col-12 mt-2">
+                  <label htmlFor="name" className="form-label">
+                    Prompt
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control form-control-sm ${isValid ? "" : "is-invalid"
+                      }`}
+                    id="setType"
+                    name="setType"
+                    placeholder="Seaarch Content For Your Website "
+                    value={content}
+                    onChange={(e) => setContect(e.target.value)}
+                    disabled
+                  />
+                  {!isValid && (
+                    <div className="invalid-feedback">
+                      Please provide a valid name.
+                    </div>
+                  )}
+                </div>
+
+
+</form> */}
+       
+
         <div className="col-12 my-2">
           <table className="table table-bordered table-hover">
             <thead>
@@ -258,6 +302,7 @@ console.log(pages,"pagespages")
         </div>
       </div>
     </div>
+    </>
   );
 };
 
